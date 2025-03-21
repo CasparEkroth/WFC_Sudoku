@@ -12,8 +12,6 @@ int main(int argc, char **argv){
     srand(time(NULL));
     WFC theWFC;
     theWFC = newWFC();
-    printWFC(theWFC);
-    printf("\n\n\n");
     runAlgo(theWFC);
     printWFC(theWFC);
     destroyWFC(theWFC);

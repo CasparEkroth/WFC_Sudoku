@@ -26,6 +26,7 @@ void updateContainer(WFC aWFC);
 //##
 
 void runAlgo(WFC aWFC);
+void test(Tile aTile, int value);
 
 
 #define MAX_ENTROPI (9)

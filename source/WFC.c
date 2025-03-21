@@ -153,14 +153,30 @@ bool isCompleted(WFC aWFC){
     return true;
 }
 
+void test(Tile aTile, int value){
+    aTile->entropi = 0;
+    aTile->isCollapst = true;
+    aTile->value = value;
+}
+
+
 void runAlgo(WFC aWFC){
     int count = 0;
+    /*
+    test(aWFC->tiles[0][0],5);
+    test(aWFC->tiles[0][1],3);
+    test(aWFC->tiles[0][4],7);
+    test(aWFC->tiles[1][0],6);
+    */
+
+    printWFC(aWFC);
+    printf("\n\n\n");
     while (!isCompleted(aWFC)){
         updateContainer(aWFC);
         updateEntropi(aWFC);
         findLowestEntrepi(aWFC);
         collapseTile(aWFC->tiles[aWFC->lowIndex.y][aWFC->lowIndex.x]);
-        if(count++ == 5000){
+        if(count++ == 20000){
             printf("Out of time!!\n");
             return;
         }
