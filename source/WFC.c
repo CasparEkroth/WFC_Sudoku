@@ -35,8 +35,8 @@ Tile newTile(void){
     return aTile;
 }
 
-WFC newWFC(void){
-    WFC aWFC = malloc(sizeof(struct wfc));
+Wfc newWFC(void){
+    Wfc aWFC = malloc(sizeof(struct wfc));
     aWFC->collapse = collapseTile;
     for (int y = 0; y < MAP_SIZE_SIDE; y++){
         for (int x = 0; x < MAP_SIZE_SIDE; x++){
@@ -52,7 +52,7 @@ WFC newWFC(void){
 
 //############# rules for tiles only for suduko #######
 
-void threeThree(WFC aWFC){
+void threeThree(Wfc aWFC){
     struct Point Quadrant ={0};
     Quadrant.x = aWFC->ruleIndex.x / 3;
     Quadrant.y = aWFC->ruleIndex.y / 3;
@@ -69,7 +69,7 @@ void threeThree(WFC aWFC){
     
 } 
 
-void axis(WFC aWFC){
+void axis(Wfc aWFC){
     for (int i = 0; i < MAP_SIZE_SIDE; i++){
         if(aWFC->tiles[i][aWFC->ruleIndex.x]->isCollapst){
             int value = aWFC->tiles[i][aWFC->ruleIndex.x]->value-1;
@@ -83,7 +83,7 @@ void axis(WFC aWFC){
     
 }
 
-void updateContainer(WFC aWFC){
+void updateContainer(Wfc aWFC){
     for (int y = 0; y < MAP_SIZE_SIDE ; y++){
         for (int x = 0; x < MAP_SIZE_SIDE; x++){
             aWFC->ruleIndex.x = x;
@@ -95,7 +95,7 @@ void updateContainer(WFC aWFC){
 }
 
 //###############
-void updateEntropi(WFC aWFC){
+void updateEntropi(Wfc aWFC){
     for (int y = 0; y < MAP_SIZE_SIDE ; y++){
         for (int x = 0; x < MAP_SIZE_SIDE; x++){
                 aWFC->tiles[y][x]->entropi = 0;
@@ -106,7 +106,7 @@ void updateEntropi(WFC aWFC){
     }
 }
 
-void findLowestEntrepi(WFC aWFC){
+void findLowestEntrepi(Wfc aWFC){
     int lowest = MAX_ENTROPI;
     for (int y = 0; y < MAP_SIZE_SIDE ; y++){
         for (int x = 0; x < MAP_SIZE_SIDE; x++){
@@ -135,7 +135,7 @@ void collapseTile(Tile aTile){
     }
 }
 
-void printWFC(WFC aWFC){
+void printWFC(Wfc aWFC){
     for (int y = 0; y < MAP_SIZE_SIDE ; y++){
         for (int x = 0; x < MAP_SIZE_SIDE; x++){
             printf("%d",aWFC->tiles[y][x]->value);
@@ -144,7 +144,7 @@ void printWFC(WFC aWFC){
     }
 }
 
-bool isCompleted(WFC aWFC){
+bool isCompleted(Wfc aWFC){
     for (int y = 0; y < MAP_SIZE_SIDE ; y++){
         for (int x = 0; x < MAP_SIZE_SIDE; x++){
             if(!aWFC->tiles[y][x]->isCollapst) return false;
@@ -159,7 +159,7 @@ void test(Tile aTile, int value){
     aTile->value = value;
 }
 
-void reset(WFC aWFC){
+void reset(Wfc aWFC){
     for (int y = 0; y < MAP_SIZE_SIDE ; y++){
         for (int x = 0; x < MAP_SIZE_SIDE; x++){
             aWFC->tiles[y][x]->entropi = MAX_ENTROPI;
@@ -175,15 +175,14 @@ void reset(WFC aWFC){
 }
 
 
-void runAlgo(WFC aWFC, bool retry){
+void runAlgo(Wfc aWFC, bool retry){
     int count = 0;
     int nrOfRetrys = 0;
-    /*
+    
     test(aWFC->tiles[0][0],5);
     test(aWFC->tiles[0][1],3);
     test(aWFC->tiles[0][4],7);
     test(aWFC->tiles[1][0],6);
-    */
     printWFC(aWFC);
     printf("\n\n\n");
     while (!isCompleted(aWFC)){
@@ -197,16 +196,28 @@ void runAlgo(WFC aWFC, bool retry){
         }
         if(count >= 1500 && retry){
             reset(aWFC);
+            test(aWFC->tiles[0][0],5);
+            test(aWFC->tiles[0][1],3);
+            test(aWFC->tiles[0][4],7);
+            test(aWFC->tiles[1][0],6);
             count = 0;
             nrOfRetrys++;
             printf("hej\n");
         }
     }
-    
-    printf("%d nr of ireitarions\n %d nr of retrys",count,nrOfRetrys);
+    printf("%d nr of ireitarions\n %d nr of retrys\n",count,nrOfRetrys);
 }
 
-void destroyWFC(WFC aWFC){
+void getBord(Wfc aWFC,char bord[MAP_SIZE_SIDE][MAP_SIZE_SIDE]){
+    for (int y = 0; y < MAP_SIZE_SIDE ; y++){
+        for (int x = 0; x < MAP_SIZE_SIDE; x++){
+        bord[y][x] = aWFC->tiles[y][x]->value;
+        }
+    }
+}
+
+
+void destroyWFC(Wfc aWFC){
     for (int y = 0; y < MAP_SIZE_SIDE ; y++){
         for (int x = 0; x < MAP_SIZE_SIDE; x++){
             destroyTile(aWFC->tiles[y][x]);
