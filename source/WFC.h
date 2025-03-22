@@ -25,9 +25,9 @@ void axis(WFC aWFC);
 void updateContainer(WFC aWFC);
 //##
 
-void runAlgo(WFC aWFC);
+void runAlgo(WFC aWFC, bool retry);
 void test(Tile aTile, int value);
-
+void reset(WFC aWFC);
 
 #define MAX_ENTROPI (9)
 #define MAP_SIZE_SIDE 9

@@ -12,7 +12,7 @@ int main(int argc, char **argv){
     srand(time(NULL));
     WFC theWFC;
     theWFC = newWFC();
-    runAlgo(theWFC);
+    runAlgo(theWFC, true);
     printWFC(theWFC);
     destroyWFC(theWFC);
     return 0;

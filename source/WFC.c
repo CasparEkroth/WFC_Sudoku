@@ -159,16 +159,31 @@ void test(Tile aTile, int value){
     aTile->value = value;
 }
 
+void reset(WFC aWFC){
+    for (int y = 0; y < MAP_SIZE_SIDE ; y++){
+        for (int x = 0; x < MAP_SIZE_SIDE; x++){
+            aWFC->tiles[y][x]->entropi = MAX_ENTROPI;
+            aWFC->tiles[y][x]->isCollapst = false;
+            aWFC->tiles[y][x]->value = -1;
+            for(int i = 0;i < MAX_ENTROPI; i++) aWFC->tiles[y][x]->container[i] = (i + 1);
+        }
+    }
+    aWFC->lowIndex.x = 0;
+    aWFC->lowIndex.y = 0;
+    aWFC->ruleIndex.x = 0;
+    aWFC->ruleIndex.y = 0;
+}
 
-void runAlgo(WFC aWFC){
+
+void runAlgo(WFC aWFC, bool retry){
     int count = 0;
+    int nrOfRetrys = 0;
     /*
     test(aWFC->tiles[0][0],5);
     test(aWFC->tiles[0][1],3);
     test(aWFC->tiles[0][4],7);
     test(aWFC->tiles[1][0],6);
     */
-
     printWFC(aWFC);
     printf("\n\n\n");
     while (!isCompleted(aWFC)){
@@ -180,7 +195,15 @@ void runAlgo(WFC aWFC){
             printf("Out of time!!\n");
             return;
         }
+        if(count >= 1500 && retry){
+            reset(aWFC);
+            count = 0;
+            nrOfRetrys++;
+            printf("hej\n");
+        }
     }
+    
+    printf("%d nr of ireitarions\n %d nr of retrys",count,nrOfRetrys);
 }
 
 void destroyWFC(WFC aWFC){
