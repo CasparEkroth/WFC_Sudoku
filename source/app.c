@@ -21,7 +21,7 @@ void generateBord(int bord[MAP_SIZE_SIDE][MAP_SIZE_SIDE]){
     Wfc theWFC;
     theWFC = newWFC();
     runAlgo(theWFC, true);
-    printWFC(theWFC);
+    //printWFC(theWFC);
     getBord(theWFC,bord);
     destroyWFC(theWFC);
 }
@@ -60,7 +60,10 @@ App appConstructer(){
 
 void mapRender(Map aMap,SDL_Renderer *pRederer){
     for (int y = 0; y < MAP_SIZE_SIDE; y++){
-        for (int x = 0; x < MAP_SIZE_SIDE; x++){
+        for (int x = 0; x < MAP_SIZE_SIDE; x++){            
+            SDL_SetRenderDrawColor(pRederer,255,255,255,255);
+            SDL_RenderDrawRect(pRederer,&aMap->rect_bord[y][x]);
+            SDL_SetRenderDrawColor(pRederer,0,0,0,0);
             SDL_RenderCopy(pRederer,aMap->numbers[aMap->borde[y][x]-1],NULL,&aMap->rect_bord[y][x]);
         }
     }

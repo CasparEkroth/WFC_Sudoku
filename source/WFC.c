@@ -178,13 +178,14 @@ void reset(Wfc aWFC){
 void runAlgo(Wfc aWFC, bool retry){
     int count = 0;
     int nrOfRetrys = 0;
-    
+    /*
     test(aWFC->tiles[0][0],5);
     test(aWFC->tiles[0][1],3);
     test(aWFC->tiles[0][4],7);
     test(aWFC->tiles[1][0],6);
-    printWFC(aWFC);
-    printf("\n\n\n");
+    */
+    //printWFC(aWFC);
+    //printf("\n\n\n");
     while (!isCompleted(aWFC)){
         updateContainer(aWFC);
         updateEntropi(aWFC);
@@ -196,16 +197,15 @@ void runAlgo(Wfc aWFC, bool retry){
         }
         if(count >= 1500 && retry){
             reset(aWFC);
-            test(aWFC->tiles[0][0],5);
-            test(aWFC->tiles[0][1],3);
-            test(aWFC->tiles[0][4],7);
-            test(aWFC->tiles[1][0],6);
+            // test(aWFC->tiles[0][0],5);
+            // test(aWFC->tiles[0][1],3);
+            // test(aWFC->tiles[0][4],7);
+            // test(aWFC->tiles[1][0],6);
             count = 0;
             nrOfRetrys++;
-            printf("hej\n");
         }
     }
-    printf("%d nr of ireitarions\n %d nr of retrys\n",count,nrOfRetrys);
+    printf("%d nr of ireitarions\n %d nr of retrys\n\n",count,nrOfRetrys);
 }
 
 void getBord(Wfc aWFC,int bord[MAP_SIZE_SIDE][MAP_SIZE_SIDE]){
