@@ -18,6 +18,7 @@ void RBG(SDL_Surface *surface, int x, int y);
 Uint32 getPixel(SDL_Surface *surface, int x, int y);
 void addIntToString(char str[NAME], int X);
 SDL_Texture* textToScreen(char string[NAME], TTF_Font *pFont,SDL_Renderer *pRendrerer,SDL_Rect *pRect);
+void addIntToString(char str[NAME], int X);
 
 
 

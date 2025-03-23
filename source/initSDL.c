@@ -1,6 +1,6 @@
 #include "initSDL.h"
 
-bool initialize_window(SDL_Renderer *pRenderere, SDL_Window *pWindow, TTF_Font *pFont){ // Initialiserar SDL och skapar fönster
+bool initialize_window(SDL_Renderer **ppRenderere, SDL_Window **ppWindow, TTF_Font **ppFont){ // Initialiserar SDL och skapar fönster
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0 || TTF_Init() != 0 || SDL_Init(SDL_INIT_AUDIO) < 0){
         fprintf(stderr, "Error initializing SDL. %s\n", SDL_GetError());
         return false;
@@ -13,7 +13,7 @@ bool initialize_window(SDL_Renderer *pRenderere, SDL_Window *pWindow, TTF_Font *
         fprintf(stderr,"SDL_mixer could not initialize! Mix_Error: %s\n",Mix_GetError());
         return false;
     }
-    pWindow = SDL_CreateWindow(
+    *ppWindow = SDL_CreateWindow(
         NULL, // Titel
         SDL_WINDOWPOS_CENTERED, // x
         SDL_WINDOWPOS_CENTERED, // y 
@@ -21,18 +21,18 @@ bool initialize_window(SDL_Renderer *pRenderere, SDL_Window *pWindow, TTF_Font *
         STARTING_WINDOW_HEIGHT, 
         SDL_WINDOW_RESIZABLE  // Flags
     );
-    if (!pWindow) {
+    if (!*ppWindow) {
         fprintf(stderr, "Error creating SDL Window: %s\n", SDL_GetError());
         return false;
     }
     Uint32 render_flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
-    pRenderere = SDL_CreateRenderer(pWindow, -1, render_flags);
-    if (!pRenderere) {
+    *ppRenderere = SDL_CreateRenderer(*ppWindow, -1, render_flags);
+    if (!*ppRenderere) {
         fprintf(stderr, "Error creating SDL Renderer: %s\n", SDL_GetError());
         return false;
     }
-    pFont = TTF_OpenFont("resources/Academy Engraved LET Fonts.ttf",24);
-    if(!pFont){
+    *ppFont = TTF_OpenFont("resources/Academy Engraved LET Fonts.ttf",24);
+    if(!*ppFont){
         fprintf(stderr,"Error opening Font: %s\n", TTF_GetError());
         return false;
     }

@@ -33,7 +33,7 @@ void updateContainer(Wfc aWFC);
 void runAlgo(Wfc aWFC, bool retry);
 void test(Tile aTile, int value);
 void reset(Wfc aWFC);
-void getBord(Wfc aWFC,char bord[MAP_SIZE_SIDE][MAP_SIZE_SIDE]);
+void getBord(Wfc aWFC,int bord[MAP_SIZE_SIDE][MAP_SIZE_SIDE]);
 
 
 // för suduko

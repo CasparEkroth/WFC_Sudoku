@@ -1,5 +1,5 @@
 
-OBJ = main.o initSDL.o toolSDL.o WFC.o #ex på filer som behöver compilera 
+OBJ = main.o initSDL.o toolSDL.o WFC.o app.o #ex på filer som behöver compilera 
 # Hämta OS-namnet via uname. 
 # Om uname inte finns (t.ex. ren Windows utan MSYS), sätt OS till Windows_NT.
 OS := $(shell uname -s 2>/dev/null)
@@ -68,6 +68,8 @@ toolSDL.o: $(SRCDIR)/toolSDL.c
 WFC.o: $(SRCDIR)/WFC.c
 	$(CC) $(CFLAGS) $(SRCDIR)/WFC.c -o WFC.o
 
+app.o: $(SRCDIR)/app.c
+	$(CC) $(CFLAGS) $(SRCDIR)/app.c -o app.o
 # Clean binaries
 clean: 
 	$(REMOV) $(EXEC)

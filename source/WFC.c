@@ -208,7 +208,7 @@ void runAlgo(Wfc aWFC, bool retry){
     printf("%d nr of ireitarions\n %d nr of retrys\n",count,nrOfRetrys);
 }
 
-void getBord(Wfc aWFC,char bord[MAP_SIZE_SIDE][MAP_SIZE_SIDE]){
+void getBord(Wfc aWFC,int bord[MAP_SIZE_SIDE][MAP_SIZE_SIDE]){
     for (int y = 0; y < MAP_SIZE_SIDE ; y++){
         for (int x = 0; x < MAP_SIZE_SIDE; x++){
         bord[y][x] = aWFC->tiles[y][x]->value;

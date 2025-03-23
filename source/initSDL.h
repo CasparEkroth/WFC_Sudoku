@@ -16,7 +16,7 @@
 
 
 
-bool initialize_window(SDL_Renderer *pRenderere, SDL_Window *pWindow, TTF_Font *pFont);
+bool initialize_window(SDL_Renderer **ppRenderere, SDL_Window **ppWindow, TTF_Font **ppFont);
 void close_SDL(SDL_Window* pWindow,SDL_Renderer *pRenderer, TTF_Font *pFont);
 
 
