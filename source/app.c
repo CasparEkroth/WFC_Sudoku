@@ -29,6 +29,7 @@ void generateBord(int bord[MAP_SIZE_SIDE][MAP_SIZE_SIDE]){
 Map mapConstructer(TTF_Font *pFont,SDL_Renderer *pRendrerer){
     Map aMap = malloc(sizeof(struct map));
     generateBord(aMap->borde);//WFC
+    mapCleanBord(aMap);
     for (int y = 0; y < MAP_SIZE_SIDE; y++){
         for (int x = 0; x < MAP_SIZE_SIDE; x++){
             aMap->rect_bord[y][x].h = TILE_SIZE;
@@ -64,6 +65,7 @@ void mapRender(Map aMap,SDL_Renderer *pRederer){
             SDL_SetRenderDrawColor(pRederer,255,255,255,255);
             SDL_RenderDrawRect(pRederer,&aMap->rect_bord[y][x]);
             SDL_SetRenderDrawColor(pRederer,0,0,0,0);
+            if(aMap->borde[y][x] == 0) continue;
             SDL_RenderCopy(pRederer,aMap->numbers[aMap->borde[y][x]-1],NULL,&aMap->rect_bord[y][x]);
         }
     }
@@ -104,9 +106,32 @@ void appRenderer(App aApp){
 void appUpdate(App aApp){
     if(aApp->aMap->generateNewMap){
         generateBord(aApp->aMap->borde);
+        mapCleanBord(aApp->aMap);
         aApp->aMap->generateNewMap = false;
     }
 }
+
+void mapCleanBord(Map aMap){
+    for (int y  = 0; y   < SIZE_OF_QUADRANT; y++) {
+        for (int x = 0; x < SIZE_OF_QUADRANT; x++) {
+            int countOfTils = rand() % 4 + 5; 
+            int removed = 0;
+            while (removed < countOfTils){
+                int dy = rand() % 3;
+                int dx = rand() % 3;
+
+                int row = y * 3 + dy;
+                int col = x * 3 + dx;
+
+                if (aMap->borde[row][col] != 0){
+                    aMap->borde[row][col] = 0;
+                    removed++;
+                }
+            }
+        }
+    }
+}
+
 
 void appLoop(App aApp){
     SDL_Event event = {0};

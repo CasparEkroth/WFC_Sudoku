@@ -216,7 +216,6 @@ void getBord(Wfc aWFC,int bord[MAP_SIZE_SIDE][MAP_SIZE_SIDE]){
     }
 }
 
-
 void destroyWFC(Wfc aWFC){
     for (int y = 0; y < MAP_SIZE_SIDE ; y++){
         for (int x = 0; x < MAP_SIZE_SIDE; x++){

@@ -19,5 +19,7 @@ void generateBord(int bord[MAP_SIZE_SIDE][MAP_SIZE_SIDE]);
 
 void appLoop(App aApp);
 
+void mapCleanBord(Map aMap);
+
 
 #endif
