@@ -8,9 +8,13 @@ typedef struct app *App;
 struct map;
 typedef struct map *Map;
 
+struct menu;
+typedef struct menu *Menu;
+
 #define TILE_SIZE 32*2
 
 App appConstructer();
+
 Map mapConstructer(TTF_Font *pFont,SDL_Renderer *pRendrerer);
 
 void destroyApp(App aApp);

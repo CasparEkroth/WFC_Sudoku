@@ -1,5 +1,5 @@
 {
     "files.associations": {
-        "toolsdl.h": "c"
+        "app.h": "c"
     }
 }
