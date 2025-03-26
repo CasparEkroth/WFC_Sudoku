@@ -94,6 +94,7 @@ App appConstructer(){
     return aApp;
 }
 
+
 void menuRender(Menu aMenu, Map aMap, SDL_Renderer *pRenderer){
     for (int i = 0; i < MAX_ENTROPI; i++){
         if(i == aMenu->selected_tile-1){
