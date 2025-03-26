@@ -14,6 +14,8 @@ typedef struct tile *Tile;
 #define MAP_SIZE_SIDE 9
 #define MAP_SIZE (MAP_SIZE_SIDE * MAP_SIZE_SIDE)
 #define SIZE_OF_QUADRANT 3
+#define TOTAL_NUM_QUADRANT 9
+#define SIDE_NUM_QUADRANT 3
 
 Tile newTile(void);
 void updateEntropi(Wfc aWFC);

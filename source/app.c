@@ -4,6 +4,7 @@ struct map{
     bool generateNewMap;
     int borde[MAP_SIZE_SIDE][MAP_SIZE_SIDE];
     SDL_Rect rect_bord[MAP_SIZE_SIDE][MAP_SIZE_SIDE];
+    SDL_Rect quadrant[SIDE_NUM_QUADRANT][SIDE_NUM_QUADRANT];
     SDL_Texture *numbers[MAX_ENTROPI];
 };
 
@@ -35,7 +36,7 @@ void generateBord(int bord[MAP_SIZE_SIDE][MAP_SIZE_SIDE]){
 
 Menu menuConstructer(SDL_Point startingPoint){
     Menu aMenu = malloc(sizeof(struct menu));
-    aMenu->selected_tile = -1;
+    aMenu->selected_tile = 0;
     for (int i = 0; i < MAX_ENTROPI; i++){
         aMenu->selectNumber[i].h = TILE_SIZE;
         aMenu->selectNumber[i].w = TILE_SIZE;
@@ -55,6 +56,16 @@ Map mapConstructer(TTF_Font *pFont,SDL_Renderer *pRendrerer){
             aMap->rect_bord[y][x].w = TILE_SIZE;
             aMap->rect_bord[y][x].x = (x * TILE_SIZE);
             aMap->rect_bord[y][x].y = (y * TILE_SIZE);
+        }
+    }
+    for (int y = 0; y < SIDE_NUM_QUADRANT ;y++){
+        for(int x = 0; x < SIDE_NUM_QUADRANT;x++){
+            int blockY = y*3;
+            int blockX = x*3;
+            aMap->quadrant[y][x].y = aMap->rect_bord[blockY][blockX].y;
+            aMap->quadrant[y][x].x = aMap->rect_bord[blockY][blockX].x;
+            aMap->quadrant[y][x].w = (TILE_SIZE*3);
+            aMap->quadrant[y][x].h = (TILE_SIZE*3);
         }
     }
     aMap->generateNewMap = false;
@@ -104,6 +115,13 @@ void mapRender(Map aMap,SDL_Renderer *pRederer){
             SDL_RenderCopy(pRederer,aMap->numbers[aMap->borde[y][x]-1],NULL,&aMap->rect_bord[y][x]);
         }
     }
+    SDL_SetRenderDrawColor(pRederer,255,0,0,255);
+    for (int y = 0; y < SIDE_NUM_QUADRANT ;y++){
+        for(int x = 0; x < SIDE_NUM_QUADRANT;x++){
+            SDL_RenderDrawRect(pRederer,&aMap->quadrant[y][x]);
+        }
+    }
+    SDL_SetRenderDrawColor(pRederer,0,0,0,0);
 }
 
 void appInput(App aApp, SDL_Event event){
